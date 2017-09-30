@@ -20,7 +20,7 @@ namespace CF_Tracking_Data
             const int TOTAL_RIDERS = 50;
             int num65Riders = TOTAL_RIDERS * 15 / 100;      // 15% on 65 mile course
             int num30Riders = TOTAL_RIDERS * 35 / 100;      // 35% on 30 mile course
-            int num12Riders = TOTAL_RIDERS / 2;             // 50% on 12 mile course
+            int num12Riders = (TOTAL_RIDERS / 2) + 1;       // 50% on 12 mile course, add 1 due to rounding
 
             const string DATA_FILE = "c:\\work\\cf_data_8.json";
 
