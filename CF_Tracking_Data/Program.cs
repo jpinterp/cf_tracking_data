@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+// [{"id":4779,"bib":"2B001AC1000050000000B93F","scan_time":"2017-09-28T15:23:31.000Z","station":"Finish Line","race_id":4,"created_at":"2017-09-28T19:23:33.000Z","updated_at":"2017-09-28T19:23:33.000Z"}]
 
 namespace CF_Tracking_Data
 {
@@ -30,7 +31,8 @@ namespace CF_Tracking_Data
 
             // Put all the scanned data into a list.  Once its all generated then
             // it gets sorted chronologically and dumped into a JSON file.
-            Riders riders = new Riders(TOTAL_RIDERS * 4);
+            // Riders riders = new Riders(TOTAL_RIDERS * 4);
+            List<Rider> riderList = new List<Rider>(TOTAL_RIDERS * 4);
 
             Rider riderScan;
             DateTime timestamp;
@@ -53,23 +55,23 @@ namespace CF_Tracking_Data
             {
                 // Start
                 timestamp = RandomTime(r, timeStartLow, timeStartHigh);
-                riderScan = new Rider(bib, FINISH_SCANNER, timestamp);
-                riders.RiderList.Add(riderScan);
+                riderScan = new Rider(FormatBib(bib), FINISH_SCANNER, timestamp);
+                riderList.Add(riderScan);
 
                 // Senior Center
                 timestamp = RandomTime(r, timeSeniorLow, timeSeniorHigh);
-                riderScan = new Rider(bib, SENIOR_SCANNER, timestamp);
-                riders.RiderList.Add(riderScan);
+                riderScan = new Rider(FormatBib(bib), SENIOR_SCANNER, timestamp);
+                riderList.Add(riderScan);
 
                 // Legacy Farms
                 timestamp = RandomTime(r, timeLegacyLow, timeLegacyHigh);
-                riderScan = new Rider(bib, LEGACY_SCANNER, timestamp);
-                riders.RiderList.Add(riderScan);
+                riderScan = new Rider(FormatBib(bib), LEGACY_SCANNER, timestamp);
+                riderList.Add(riderScan);
             
                 // Finish
                 timestamp = RandomTime(r, timeFinishLow, timeFinishHigh);
-                riderScan = new Rider(bib, FINISH_SCANNER, timestamp);
-                riders.RiderList.Add(riderScan);
+                riderScan = new Rider(FormatBib(bib), FINISH_SCANNER, timestamp);
+                riderList.Add(riderScan);
             }
 
             // 30 mile times
@@ -84,18 +86,18 @@ namespace CF_Tracking_Data
             {
                 // Start
                 timestamp = RandomTime(r, timeStartLow, timeStartHigh);
-                riderScan = new Rider(bib, FINISH_SCANNER, timestamp);
-                riders.RiderList.Add(riderScan);
+                riderScan = new Rider(FormatBib(bib), FINISH_SCANNER, timestamp);
+                riderList.Add(riderScan);
 
                 // Senior Center
                 timestamp = RandomTime(r, timeSeniorLow, timeSeniorHigh);
-                riderScan = new Rider(bib, SENIOR_SCANNER, timestamp);
-                riders.RiderList.Add(riderScan);
+                riderScan = new Rider(FormatBib(bib), SENIOR_SCANNER, timestamp);
+                riderList.Add(riderScan);
 
                 // Finish
                 timestamp = RandomTime(r, timeFinishLow, timeFinishHigh);
-                riderScan = new Rider(bib, FINISH_SCANNER, timestamp);
-                riders.RiderList.Add(riderScan);
+                riderScan = new Rider(FormatBib(bib), FINISH_SCANNER, timestamp);
+                riderList.Add(riderScan);
             }
 
             // 12 mile times
@@ -110,35 +112,39 @@ namespace CF_Tracking_Data
             {
                 // Start
                 timestamp = RandomTime(r, timeStartLow, timeStartHigh);
-                riderScan = new Rider(bib, FINISH_SCANNER, timestamp);
-                riders.RiderList.Add(riderScan);
+                riderScan = new Rider(FormatBib(bib), FINISH_SCANNER, timestamp);
+                riderList.Add(riderScan);
 
                 // Senior Center
                 timestamp = RandomTime(r, timeSeniorLow, timeSeniorHigh);
-                riderScan = new Rider(bib, SENIOR_SCANNER, timestamp);
-                riders.RiderList.Add(riderScan);
+                riderScan = new Rider(FormatBib(bib), SENIOR_SCANNER, timestamp);
+                riderList.Add(riderScan);
 
                 // Finish
                 timestamp = RandomTime(r, timeFinishLow, timeFinishHigh);
-                riderScan = new Rider(bib, FINISH_SCANNER, timestamp);
-                riders.RiderList.Add(riderScan);
+                riderScan = new Rider(FormatBib(bib), FINISH_SCANNER, timestamp);
+                riderList.Add(riderScan);
             }
 
             // Convenient place for a breakpoint
-            Console.WriteLine("Records generated: {0}", riders.RiderList.Count);
+            Console.WriteLine("Records generated: {0}", riderList.Count);
 
             //  Put data points into chronological order
-            riders.RiderList.Sort((r1, r2) => DateTime.Compare(r1.Timestamp, r2.Timestamp));
+            riderList.Sort((r1, r2) => DateTime.Compare(r1.ScanTime, r2.ScanTime));
 
             // Convert the data points to JSON format
             JsonHelper helper = new JsonHelper();
             // string result = helper.ConvertObjectToJson(riders);
-            string result = helper.ConvertObjectToJson(riders.RiderList);
+            string result = helper.ConvertObjectToJson(riderList);
 
             // Dump the data to a file
             System.IO.File.WriteAllText(DATA_FILE, result);
          }
 
+        static string FormatBib(int bib)
+        {
+            return string.Format("CFF000{0:D3}", bib);
+        }
         // Generate a time in between the to limits to simulate a rider
         // stopping at a reporting point
         static DateTime RandomTime(Random r, DateTime timeLower, DateTime timeUpper)
