@@ -141,10 +141,14 @@ namespace CF_Tracking_Data
             System.IO.File.WriteAllText(DATA_FILE, result);
          }
 
+        // Create a bib number in the format of CFF000xxx where xxx is the
+        // number everyone sees that is displayed on the bib
         static string FormatBib(int bib)
         {
             return string.Format("CFF000{0:D3}", bib);
         }
+
+
         // Generate a time in between the to limits to simulate a rider
         // stopping at a reporting point
         static DateTime RandomTime(Random r, DateTime timeLower, DateTime timeUpper)

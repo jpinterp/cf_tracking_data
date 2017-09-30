@@ -13,7 +13,6 @@ namespace CF_Tracking_Data
         public string ConvertObjectToJson<T>(T obj)
         {
             DataContractJsonSerializerSettings settings = new DataContractJsonSerializerSettings();
-            // settings.RootName = "riders";
             settings.DateTimeFormat = new System.Runtime.Serialization.DateTimeFormat("yyyy-MM-ddTHH:mm:ss.fffZ");  // HH for 24 hour clock
 
             DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(T), settings);
