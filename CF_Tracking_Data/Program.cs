@@ -145,7 +145,7 @@ namespace CF_Tracking_Data
         // number everyone sees that is displayed on the bib
         static string FormatBib(int bib)
         {
-            return string.Format("CFF000{0:D3}", bib);
+            return string.Format("CFF00{0:D3}", bib);
         }
 
 
