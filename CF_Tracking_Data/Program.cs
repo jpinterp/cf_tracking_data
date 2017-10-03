@@ -12,9 +12,6 @@ namespace CF_Tracking_Data
 {
     class Program
     {
-
-        
-
         static void Main(string[] args)
         {
             const int TOTAL_RIDERS = 50;
@@ -22,12 +19,14 @@ namespace CF_Tracking_Data
             int num30Riders = TOTAL_RIDERS * 35 / 100;      // 35% on 30 mile course
             int num12Riders = (TOTAL_RIDERS / 2) + 1;       // 50% on 12 mile course, add 1 due to rounding
 
-            const string DATA_FILE = "c:\\work\\cf_data_8.json";
+            const string DATA_FILE = "c:\\work\\cf_data_9.json";
 
             // Following IDs must match spreadsheet
-            const string FINISH_SCANNER = "finish_1";
-            const string SENIOR_SCANNER = "senior_1";
-            const string LEGACY_SCANNER = "legacy_1";
+            const string FINISH_SCANNER = "FINISH";
+            const string SENIOR_SCANNER = "SENIOR";
+            const string LEGACY_SCANNER = "LEGACY";
+
+            const int RACE_ID = 6;
 
             // Put all the scanned data into a list.  Once its all generated then
             // it gets sorted chronologically and dumped into a JSON file.
@@ -51,27 +50,34 @@ namespace CF_Tracking_Data
             DateTime timeFinishLow = new DateTime(2017, 10, 7, 12, 28, 0);      // 12:28 - 1:25
             DateTime timeFinishHigh = new DateTime(2017, 10, 7, 13, 25, 0);
 
+            // Record ID number
+            int recordId = 1000;
+
             for (int bib = 1; bib <= num65Riders; bib++)
             {
                 // Start
                 timestamp = RandomTime(r, timeStartLow, timeStartHigh);
-                riderScan = new Rider(FormatBib(bib), FINISH_SCANNER, timestamp);
+                riderScan = new Rider(recordId, FormatBib(bib), FINISH_SCANNER, timestamp, RACE_ID);
                 riderList.Add(riderScan);
+                recordId++;
 
                 // Senior Center
                 timestamp = RandomTime(r, timeSeniorLow, timeSeniorHigh);
-                riderScan = new Rider(FormatBib(bib), SENIOR_SCANNER, timestamp);
+                riderScan = new Rider(recordId, FormatBib(bib), SENIOR_SCANNER, timestamp, RACE_ID);
                 riderList.Add(riderScan);
+                recordId++;
 
                 // Legacy Farms
                 timestamp = RandomTime(r, timeLegacyLow, timeLegacyHigh);
-                riderScan = new Rider(FormatBib(bib), LEGACY_SCANNER, timestamp);
+                riderScan = new Rider(recordId, FormatBib(bib), LEGACY_SCANNER, timestamp, RACE_ID);
                 riderList.Add(riderScan);
-            
+                recordId++;
+
                 // Finish
                 timestamp = RandomTime(r, timeFinishLow, timeFinishHigh);
-                riderScan = new Rider(FormatBib(bib), FINISH_SCANNER, timestamp);
+                riderScan = new Rider(recordId, FormatBib(bib), FINISH_SCANNER, timestamp, RACE_ID);
                 riderList.Add(riderScan);
+                recordId++;
             }
 
             // 30 mile times
@@ -86,18 +92,21 @@ namespace CF_Tracking_Data
             {
                 // Start
                 timestamp = RandomTime(r, timeStartLow, timeStartHigh);
-                riderScan = new Rider(FormatBib(bib), FINISH_SCANNER, timestamp);
+                riderScan = new Rider(recordId, FormatBib(bib), FINISH_SCANNER, timestamp, RACE_ID);
                 riderList.Add(riderScan);
+                recordId++;
 
                 // Senior Center
                 timestamp = RandomTime(r, timeSeniorLow, timeSeniorHigh);
-                riderScan = new Rider(FormatBib(bib), SENIOR_SCANNER, timestamp);
+                riderScan = new Rider(recordId, FormatBib(bib), SENIOR_SCANNER, timestamp, RACE_ID);
                 riderList.Add(riderScan);
+                recordId++;
 
                 // Finish
                 timestamp = RandomTime(r, timeFinishLow, timeFinishHigh);
-                riderScan = new Rider(FormatBib(bib), FINISH_SCANNER, timestamp);
+                riderScan = new Rider(recordId, FormatBib(bib), FINISH_SCANNER, timestamp, RACE_ID);
                 riderList.Add(riderScan);
+                recordId++;
             }
 
             // 12 mile times
@@ -112,18 +121,21 @@ namespace CF_Tracking_Data
             {
                 // Start
                 timestamp = RandomTime(r, timeStartLow, timeStartHigh);
-                riderScan = new Rider(FormatBib(bib), FINISH_SCANNER, timestamp);
+                riderScan = new Rider(recordId, FormatBib(bib), FINISH_SCANNER, timestamp, RACE_ID);
                 riderList.Add(riderScan);
+                recordId++;
 
                 // Senior Center
                 timestamp = RandomTime(r, timeSeniorLow, timeSeniorHigh);
-                riderScan = new Rider(FormatBib(bib), SENIOR_SCANNER, timestamp);
+                riderScan = new Rider(recordId, FormatBib(bib), SENIOR_SCANNER, timestamp, RACE_ID);
                 riderList.Add(riderScan);
+                recordId++;
 
                 // Finish
                 timestamp = RandomTime(r, timeFinishLow, timeFinishHigh);
-                riderScan = new Rider(FormatBib(bib), FINISH_SCANNER, timestamp);
+                riderScan = new Rider(recordId, FormatBib(bib), FINISH_SCANNER, timestamp, RACE_ID);
                 riderList.Add(riderScan);
+                recordId++;
             }
 
             // Convenient place for a breakpoint

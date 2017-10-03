@@ -21,15 +21,19 @@ namespace CF_Tracking_Data
     {
         private const int TIMEZONE_OFFSET = 4;
 
-        public Rider(string bib, string scannerId, DateTime  timestamp)
+        public Rider(int recordId, string bib, string scannerId, DateTime  timestamp, int raceId)
         {
+            RecordId = recordId;
             Bib = bib;
             ScannerId = scannerId;
             ScanTime = timestamp.AddHours(TIMEZONE_OFFSET);
-            CreateTime = DateTime.UtcNow;
-            UpdateTime = DateTime.UtcNow.AddHours(1);
-            RaceId = "4";
+            CreateTime = ScanTime.AddMinutes(10);
+            UpdateTime = ScanTime.AddMinutes(20);
+            RaceId = raceId;
         }
+
+        [DataMember(Name ="id")]
+        public int RecordId { get; set; }
 
         [DataMember(Name ="bib")]
         public string Bib { get; set; }
@@ -41,12 +45,12 @@ namespace CF_Tracking_Data
         public string ScannerId { get; set; }
 
         [DataMember(Name = "race_id")]
-        public string RaceId { get; set; }
+        public int RaceId { get; set; }
 
-        // [DataMember(Name = "created_at")]    // JSON serializer sets the time format
+        [DataMember(Name = "created_at")]    // JSON serializer sets the time format
         public DateTime CreateTime { get; set; }
 
-        // [DataMember(Name = "updated_at")]    // JSON serializer sets the time format
+        [DataMember(Name = "updated_at")]    // JSON serializer sets the time format
         public DateTime UpdateTime { get; set; }
 
 
