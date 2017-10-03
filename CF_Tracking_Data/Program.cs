@@ -24,6 +24,7 @@ namespace CF_Tracking_Data
             // Following IDs must match spreadsheet
             const string FINISH_SCANNER = "FINISH";
             const string SENIOR_SCANNER = "SENIOR";
+            const string BAILOUT_SCANNER = "BAILOUT";
             const string LEGACY_SCANNER = "LEGACY";
 
             const int RACE_ID = 6;
@@ -45,6 +46,8 @@ namespace CF_Tracking_Data
             DateTime timeStartHigh = new DateTime(2017, 10, 7, 8, 35, 0);
             DateTime timeSeniorLow = new DateTime(2017, 10, 7, 9, 54, 0);       // 9:54 - 10:26
             DateTime timeSeniorHigh = new DateTime(2017, 10, 7, 10, 26, 0);
+            DateTime timeBailoutLow = new DateTime(2017, 10, 7, 10, 40, 0);     // 10:40 - 11:20
+            DateTime timeBailoutHigh = new DateTime(2017, 10, 7, 11, 20, 0);
             DateTime timeLegacyLow = new DateTime(2017, 10, 7, 11, 23, 0);      // 11:23 - 12:27
             DateTime timeLegacyHigh = new DateTime(2017, 10, 7, 12, 27, 0);
             DateTime timeFinishLow = new DateTime(2017, 10, 7, 12, 28, 0);      // 12:28 - 1:25
@@ -52,6 +55,7 @@ namespace CF_Tracking_Data
 
             // Record ID number
             int recordId = 1000;
+            Random random = new Random();
 
             for (int bib = 1; bib <= num65Riders; bib++)
             {
@@ -67,11 +71,24 @@ namespace CF_Tracking_Data
                 riderList.Add(riderScan);
                 recordId++;
 
-                // Legacy Farms
-                timestamp = RandomTime(r, timeLegacyLow, timeLegacyHigh);
-                riderScan = new Rider(recordId, FormatBib(bib), LEGACY_SCANNER, timestamp, RACE_ID);
-                riderList.Add(riderScan);
-                recordId++;
+                // 20% chance of bailout
+                int bail = random.Next(5);
+                if (bail == 1)
+                {
+                    // Bailout
+                    timestamp = RandomTime(r, timeBailoutLow, timeBailoutHigh);
+                    riderScan = new Rider(recordId, FormatBib(bib), BAILOUT_SCANNER, timestamp, RACE_ID);
+                    riderList.Add(riderScan);
+                    recordId++;
+                }
+                else
+                {
+                    // Legacy Farms
+                    timestamp = RandomTime(r, timeLegacyLow, timeLegacyHigh);
+                    riderScan = new Rider(recordId, FormatBib(bib), LEGACY_SCANNER, timestamp, RACE_ID);
+                    riderList.Add(riderScan);
+                    recordId++;
+                }
 
                 // Finish
                 timestamp = RandomTime(r, timeFinishLow, timeFinishHigh);
