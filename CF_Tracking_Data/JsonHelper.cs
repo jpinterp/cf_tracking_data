@@ -8,6 +8,8 @@ using System.Runtime.Serialization.Json;
 
 namespace CF_Tracking_Data
 {
+    // http://www.advancesharp.com/blog/1086/convert-object-to-json-and-json-to-object-in-c
+
     public class JsonHelper
     {
         public string ConvertObjectToJson<T>(T obj)
@@ -21,6 +23,14 @@ namespace CF_Tracking_Data
             string jsonString = Encoding.UTF8.GetString(ms.ToArray());
             ms.Close();
             return jsonString;
+        }
+
+        public T ConvertJSonToObject<T>(string jsonString)
+        {
+            DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(T));
+            MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(jsonString));
+            T obj = (T)serializer.ReadObject(ms);
+            return obj;
         }
     }
 }

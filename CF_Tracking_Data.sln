@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CF_Tracking_Data", "CF_Tracking_Data\CF_Tracking_Data.csproj", "{BA18B986-0096-41CC-B886-3121829F1B69}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataDedupe", "DataDedupe\DataDedupe.csproj", "{C52591E7-5F5D-4CA2-ABDA-C06D2E822189}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,8 +17,15 @@ Global
 		{BA18B986-0096-41CC-B886-3121829F1B69}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA18B986-0096-41CC-B886-3121829F1B69}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA18B986-0096-41CC-B886-3121829F1B69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C52591E7-5F5D-4CA2-ABDA-C06D2E822189}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C52591E7-5F5D-4CA2-ABDA-C06D2E822189}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C52591E7-5F5D-4CA2-ABDA-C06D2E822189}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C52591E7-5F5D-4CA2-ABDA-C06D2E822189}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B6EBDE12-DD67-4562-8B44-417CBA711F26}
 	EndGlobalSection
 EndGlobal
